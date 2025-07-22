@@ -2,50 +2,58 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>World Clock Widget</title>
 <style>
   body {
-    font-family: sans-serif;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    font-size: 2rem;
-    color: #333;
-    line-height: 2;
+    font-family: Arial, sans-serif;
+    background: transparent;
+    color: #222;
+    padding: 20px;
+  }
+  .time-row {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  .time {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  .pin {
+    margin-right: 6px;
+  }
+  .city {
+    font-weight: normal;
   }
 </style>
 </head>
 <body>
-  <div id="times"></div>
+  <div id="clock-container"></div>
+
 <script>
-function updateTime() {
   const cities = [
-    { name: 'Hong Kong - Cam, Daphne, Monica', timeZone: 'Asia/Hong_Kong' },
-    { name: 'Beijing - Amy', timeZone: 'Asia/Shanghai' },
-    { name: 'Shenzhen - Guang, Zongyang', timeZone: 'Asia/Shanghai' },
-    { name: 'Singapore - Oscar', timeZone: 'Asia/Singapore' },
-    { name: 'Seoul - Kate', timeZone: 'Asia/Seoul' },
-    { name: 'San Francisco - Pinkie', timeZone: 'America/Los_Angeles' },
+    { name: "Hong Kong - Cam, Daphne, Monica", timezone: "Asia/Hong_Kong" },
+    { name: "Beijing - Amy", timezone: "Asia/Shanghai" },
+    { name: "Shenzhen - Guang, Zongyang", timezone: "Asia/Shanghai" },
+    { name: "Singapore - Oscar", timezone: "Asia/Singapore" },
+    { name: "Seoul - Kate", timezone: "Asia/Seoul" },
+    { name: "San Francisco - Pinkie", timezone: "America/Los_Angeles" },
   ];
 
-  const timesDiv = document.getElementById('times');
-  timesDiv.innerHTML = cities.map(city => {
-    const now = new Date().toLocaleTimeString('en-US', {
-      timeZone: city.timeZone,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
-    return `${city.name}: ${now}`;
-  }).join('<br>');
-}
-setInterval(updateTime, 1000);
-updateTime();
-</script>
-</body>
-</html>
+  function updateClocks() {
+    const container = document.getElementById("clock-container");
+    container.innerHTML = ""; // 초기화
+
+    cities.forEach(city => {
+      const now = new Date().toLocaleTimeString("en-US", {
+        timeZone: city.timezone,
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+
+      const div = document.createElement("div");
+      div.className = "time-row";
+
+      div.innerHTML =
