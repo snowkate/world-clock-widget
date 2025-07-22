@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>World Clock Widget</title>
+<style>
+  body {
+    font-family: sans-serif;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .clock {
+    background: white;
+    padding: 20px 40px;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  .city {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="clock" id="hongkong">
+    <div class="city">Hong Kong</div>
+    <div class="time"></div>
+  </div>
+  <div class="clock" id="seoul">
+    <div class="city">Seoul</div>
+    <div class="time"></div>
+  </div>
+  <div class="clock" id="sanfrancisco">
+    <div class="city">San Francisco</div>
+    <div class="time"></div>
+  </div>
+<script>
+function updateTime() {
+  const cities = [
+    { id: 'hongkong', timeZone: 'Asia/Hong_Kong' },
+    { id: 'seoul', timeZone: 'Asia/Seoul' },
+    { id: 'sanfrancisco', timeZone: 'America/Los_Angeles' },
+  ];
+
+  cities.forEach(city => {
+    const now = new Date().toLocaleTimeString('en-US', {
+      timeZone: city.timeZone,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    document.querySelector(`#${city.id} .time`).textContent = now;
+  });
+}
+setInterval(updateTime, 1000);
+updateTime();
+</script>
+</body>
+</html>
