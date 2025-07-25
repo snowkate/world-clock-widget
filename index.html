@@ -11,13 +11,13 @@
     padding: 0;
     margin: 0;
     font-family: Helvetica, Aptos, Arial, sans-serif;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.3px;
   }
   .time-row {
     font-size: 0.9em;
     margin-bottom: 0;
     line-height: 1.8;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.3px;
   }
   .time {
     font-weight: bold;
@@ -25,7 +25,7 @@
   }
   .pin {
     margin-right: 6px;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.3px;
   }
   .city {
     font-weight: normal;
@@ -54,14 +54,11 @@
 
     cities.forEach(city => {
       const nowDate = new Date().toLocaleDateString("en-CA", { timeZone: city.timezone }); // YYYY-MM-DD
-
-      // 현지 시간 객체 생성
       const now = new Date(new Date().toLocaleString("en-US", { timeZone: city.timezone }));
-
       const hour = now.getHours();
 
-      // 08:00 ~ 20:00 사이면 🌞, 그 외는 🌚
-      const emoji = (hour >= 8 && hour <= 20) ? "🌞" : "🌚";
+      // 수정된 부분: 08:00 ~ 19:59 🌞, 나머지 🌚
+      const emoji = (hour >= 8 && hour < 20) ? "🌞" : "🌚";
 
       const nowTime = now.toLocaleTimeString("en-US", {
         hour12: false,
@@ -80,5 +77,6 @@
   setInterval(updateClocks, 1000);
   updateClocks();
 </script>
+
 </body>
 </html>
